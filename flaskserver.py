@@ -8,6 +8,7 @@ app = Flask(__name__)
 @app.route("/")
 def home_func():
     filename = request.args['filename']
+    print(filename)
     hashfilename = filename.replace('.json', '')
     hashfilename = hashfilename + 'hash.json'
     sha256_hash = hashlib.sha256()
@@ -17,6 +18,6 @@ def home_func():
     sha256_hash.update(file_content)
     hashvalue = sha256_hash.hexdigest()
     with open("/tmp/log.json", "w") as f:
-        json.dump(hashvalue, f)
+            json.dump(hashvalue, f)
     s3.upload_file("/tmp/log.json", "mjrf2320", hashfilename)
     return render_template("home.html")
