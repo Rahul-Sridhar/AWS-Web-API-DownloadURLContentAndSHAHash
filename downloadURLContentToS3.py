@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         json.dump(response, f)
     url = url.translate ({ord(c): "" for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+"})
     #url = url.replace('/', '_')
-    s3.upload_file("/tmp/log.json", "mjrf2320", url+".json")
+    s3.upload_file("/tmp/log.json", Bucket_Name, url+".json")
     
     # TODO implement
     return {
