@@ -13,11 +13,11 @@ def home_func():
     hashfilename = hashfilename + 'hash.json'
     sha256_hash = hashlib.sha256()
     s3 = boto3.client("s3", aws_access_key_id = Enter_Access_key, aws_secret_access_key = Enter_Access_Password)
-    fileObj = s3.get_object(Bucket = "mjrf2320", Key = filename)
+    fileObj = s3.get_object(Bucket = Bucket_Name, Key = filename)
     file_content = fileObj["Body"].read()
     sha256_hash.update(file_content)
     hashvalue = sha256_hash.hexdigest()
     with open("/tmp/log.json", "w") as f:
             json.dump(hashvalue, f)
-    s3.upload_file("/tmp/log.json", "mjrf2320", hashfilename)
+    s3.upload_file("/tmp/log.json", Bucket_Name, hashfilename)
     return render_template("home.html")
