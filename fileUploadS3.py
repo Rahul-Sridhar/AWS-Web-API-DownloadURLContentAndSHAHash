@@ -10,11 +10,11 @@ def lambda_handler(event, context):
         file_obj = event["Records"][0]
         filename = str(file_obj['s3']['object']['key'])
         print("Filename: ", filename)
-        fileObj = s3.get_object(Bucket = "mjrf2320", Key=filename)
+        fileObj = s3.get_object(Bucket = BUCKET_NAME, Key=filename)
         if filename.endswith('hash.json'):
             print('cool')
         else:
-            URL = "http://18.218.88.143"
+            URL = "http://"+IP_Address_of_EC2_instance
             PARAMS = {'filename':filename}
             r = requests.get(url = URL, params = PARAMS)
         
